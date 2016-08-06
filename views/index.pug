@@ -1,0 +1,28 @@
+doctype html
+html(ng-app="multiradio-app")
+	head
+		script(src="node_modules/angular/angular.js")
+		script(src="node_modules/jquery/dist/jquery.min.js")
+		script(src="js/main.js")
+		link(href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css")
+		link(rel="stylesheet" href="css/styles.css")
+	body(ng-controller="multiradio-stream-controller")
+		div(ng-controller="multiradio-art-controller")
+		ul(class="menu-dropdown")
+			li(class="menu-dropdown-selected")= "{{stream_selected.name}}"
+			div(class="menu-dropdown-content")
+				li(ng-repeat="stream in streams" ng-click="switch_stream(stream)" class="menu-dropdown-item")= "{{stream.name}}"
+		div(class="stream-container")
+			audio(ng-repeat="stream in streams" id="stream_{{stream.id}}")
+				source(type="audio/ogg" ng-src="{{stream.source}}")
+		div(ng-controller="multiradio-art-controller")
+			div(class="art-bg")
+			img(class="art-fg")
+		div(ng-controller="multiradio-info-controller")
+			div(class="info-lower")= ""
+			div(class="info-upper")
+			div(class="info-upper-song")
+				span(style="color:rgba(125, 125, 125, 0.6);")= "{{target_artist}} -"
+				=" {{target_title}}"
+		div(ng-controller="multiradio-option-controller" class="option-container")
+			img(class="btn-mute" ng-src="{{get_mute_src()}}" ng-click="toggle_mute()")
